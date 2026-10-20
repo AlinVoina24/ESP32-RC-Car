@@ -1,0 +1,295 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+}
+
+.console-wrapper {
+    width: 100%;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 500;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20%;
+}
+
+.left-side {
+    width: 45%;
+    max-width: 300px;
+    height: 80%;
+    max-height: 600px;
+}
+
+.right-side {
+    width: 45%;
+    max-width: 300px;
+    height: 80%;
+    max-height: 600px;
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: column;
+}
+
+.throttle-cursor {
+    writing-mode: vertical-lr;
+    direction: rtl;
+    height: 80%;
+    width: 30px;
+    border: solid 3px black;
+    background-color: gray;
+    
+}
+
+.steering-cursor {
+    width: 90%;
+    height: 30px;
+    border: solid 3px black;
+    background-color: gray;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    pointer-events: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+
+    pointer-events: auto;
+
+    width: 55px;
+    height: 55px;
+    border: solid 5px violet;
+    border-radius: 50%;
+    background: black;
+    
+}
+
+.button {
+    width: 50px;
+    height: 50px;
+    background-color: black;
+    position: absolute;
+    color: white;
+    text-align: center;
+    border-radius: 15%;
+    cursor: pointer;
+    user-select: none;
+    z-index: 200;
+    font-size: 12px;
+}
+
+.button:active {
+    background-color: green;
+}
+
+.switch {
+    left: 78%;
+    top: -10%;
+}
+
+.download {
+    left: 78%;
+    top: 20%;
+}
+
+.change_mode {
+    left: 78%;
+    top: 50%;
+}
+
+.off {
+    background-color: rgb(247, 30, 30);
+}
+
+.on {
+    background-color: rgb(36, 203, 36);
+}
+
+.steering-trimmer-wrapper {
+    width: 100px;
+    height: 100vh;
+    padding-top: 20px;
+    padding-bottom: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+    background-color: rgb(109, 111, 109);
+    
+}
+
+.trimmer-arrows-wrapper {
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    z-index: 2000;
+    position: relative;
+
+}
+
+.state-display {
+    width: 100%;
+    height: 100%;
+    border: solid rgb(61, 61, 61) 5px;
+    position: absolute;
+    
+}
+
+.state-title {
+    width: 100%;
+    height: 20%;
+    border-bottom: solid rgb(61, 61, 61) 5px;;
+    background-color: rgb(197, 176, 168);
+}
+
+.state-screen {
+    width: 100%;
+    height: 80%;
+    text-align: center;
+    
+}
+
+.neutral-value {
+    width: 40px;
+    height: 40px;
+    background-color: black;
+    color: white;
+    user-select: none;
+    
+}
+
+.state-light {
+    width: 50px;
+    height: 50px;
+    border: solid 5px rgb(88, 88, 88);
+    border-radius: 50%;
+}
+
+.arrow {
+    width: 38px;
+    height: 38px;
+    background-color: black;
+    color: whitesmoke;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25%;
+    user-select: none;
+    cursor: pointer;
+}
+
+.arrow:active {
+    background-color: rgb(106, 10, 10);
+}
+
+.graph-wrapper {
+    position: absolute;
+    width: 100%;
+    padding-top: 10px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    touch-action: none;
+    gap: 30px;
+}
+
+.gap{
+    gap: 130px;
+    padding-top: 25px;
+}
+
+.graph {
+    background-color: rgb(211, 204, 204);
+    border: solid black 5px;
+    
+}
+
+.manual-mode-size {
+    width: 60%;
+    height: 70%;
+}
+
+.auto-mode-size {
+    width: 75%;
+    height: 87.5%;
+}
+
+.none {
+    display: none;
+}
+
+.hidden {
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.display {
+    display: inline;
+}
+
+.WAITING_FOR_STATE {
+    background-color: aliceblue;
+}
+
+.WAIT_FOR_DISTANCE {
+    background-color: mediumpurple;
+}
+
+.MOVING_FORWARD {
+    background-color: greenyellow;
+}
+
+.MOVING_BACKWARD {
+    background-color: rgb(255, 107, 61);
+}
+
+.SCANNING {
+    background-color: aqua;
+}
+
+.STEERING {
+    background-color: fuchsia;
+}
+
+.NONE {
+    background-color: darkolivegreen;
+}

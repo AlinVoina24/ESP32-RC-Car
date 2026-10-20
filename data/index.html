@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Telecomanda</title>
+        <link rel="stylesheet" href="style.css">
+        <script type="module" src="script.js"></script>
+    </head>
+
+    <body>
+        <main class="console-wrapper">
+            <section class="left-side center">
+                <input type="range" id="throttleCursor" class="throttle-cursor" min="0" max="100" step="1" value="50">
+            </section>
+
+            <section class="right-side center">
+                <input type="range" id="steeringCursor" class="steering-cursor" min="0" max="100" step="1" value="50">
+
+                <div id="powerButton" class="button switch center">ON/OFF</div>
+                <div id="downloadButton" class="button download center">FILE</div>
+                <div id="changeModeButton" class="button change_mode center">CHANGE</div>
+                
+            </section>
+        </main>
+        
+        <section id="graphWrapper" class="graph-wrapper gap">
+            <div></div>
+            <canvas id="distanceGraph" class="graph manual-mode-size"></canvas>
+        </section>
+
+        <section class="steering-trimmer-wrapper">
+            <div id="arrowsWrapper" class="trimmer-arrows-wrapper">
+                <div id="leftArrow" class="arrow"><<</div>
+                <div id="rightArrow" class="arrow">>></div>
+
+                <div id="stateDisplay" class="state-display none">
+                    <div class="state-title center">STATE</div>
+                    <div id="stateScreen" class="state-screen center WAITING_FOR_STATE">WAITING_<wbr>FOR_<wbr>STATE</div>
+                </div>
+            </div>
+
+            <div id="neutralValueDisplay" class="neutral-value center">1500</div>
+            <div id="stateLight" class="state-light off"></div>
+        </section>
+    </body>
+
+</html>
