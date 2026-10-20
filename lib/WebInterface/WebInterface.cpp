@@ -253,21 +253,6 @@ void WebInterface::sendDistance(float distance) {
     this->webSocket.sendTXT(this->activeUser, buff);
 }
 
-void WebInterface::sendThrottleSteering(int throttle, int steering) {
-    if (this->activeUser == -1) {
-        return;
-    }
-
-    char buff[256];
-
-    snprintf(buff, sizeof(buff), 
-        "{\"event\":\"sentThrottleSteering\",\"throttle\": %d, \"steering\": %d}",
-        throttle, steering
-    );
-
-    this->webSocket.sendTXT(this->activeUser, buff);
-}
-
 void WebInterface::sendMessage(std::string event, std::string msg) {
     char buff[256];
 

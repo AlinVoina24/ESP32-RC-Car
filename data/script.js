@@ -476,15 +476,6 @@ const displayAutonomousState = (state) => {
     stateScreen.innerHTML = state.replaceAll("_", "_<wbr>");
 }
 
-const displayThrottleSteering = (throttle, steering) => {
-    console.log("Throttle: ", throttle);
-    console.log("Steering: ", steering);
-}
-
-const displayMessage = (msg) => {
-    console.log(msg);
-}
-
 /* WebSocket */
 
 ws.onmessage = (event) => {
@@ -500,9 +491,5 @@ ws.onmessage = (event) => {
         displayAutonomousState(msg.state);
     } else if (msg.event === "changeMode") {
         changeMode(msg.mode);
-    } else if (msg.event === "sentThrottleSteering") {
-        displayThrottleSteering(msg.throttle, msg.steering);
-    } else if (msg.event === "signalDataReceived") {
-        displayMessage(msg.message);
     }
 }

@@ -38,6 +38,5 @@ class WebInterface {
         void sendStateLightMode(bool);
         void sendSteeringNeutralValue(int);
         void sendDistance(float);
-        void sendThrottleSteering(int, int);
         void sendMessage(std::string, std::string);
 };
