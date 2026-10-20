@@ -1,4 +1,6 @@
 .vscode
 jurnal.docx
 lib/Environments/testing_env.h
+lib/ModeManager
+lib/RemoteControl
 .pio
