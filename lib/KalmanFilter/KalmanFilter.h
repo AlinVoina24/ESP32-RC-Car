@@ -1,6 +1,8 @@
 #pragma once
 
-class KalmanFilter {
+#include <DistanceFilter.h>
+
+class KalmanFilter : public DistanceFilter {
 private:
     float estimate;
     float errorCovariance;
@@ -46,7 +48,7 @@ public:
         return estimate;
     }
 
-    void reset() {
+    void resetFilter() {
         this->initialized = false;
     }
 };

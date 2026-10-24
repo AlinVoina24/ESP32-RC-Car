@@ -3,7 +3,7 @@
 #include <queue>
 
 #include <MotorControl.h>
-#include <UltraSounds.h>
+#include <Scanner.h>
 #include <WebInterface.h>
 #include <AutonomousControl.h>
 #include <RobotCommands.h>
@@ -14,7 +14,7 @@
 class Robot {
     private:
         MotorControl& motors;
-        UltraSounds& sensor;
+        Scanner& scanner;
         WebInterface& webInt;
         AutonomousControl&  autonomousControl;
 
@@ -41,7 +41,7 @@ class Robot {
         void executeCommand(const RobotCommands&);
     
     public:
-        Robot(MotorControl&, UltraSounds&, WebInterface&, AutonomousControl&);
+        Robot(MotorControl&, Scanner&, WebInterface&, AutonomousControl&);
 
         void startRobot();
         void update();

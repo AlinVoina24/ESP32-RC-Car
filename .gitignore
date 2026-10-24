@@ -1,6 +1,8 @@
 .vscode
 jurnal.docx
 lib/Environments/testing_env.h
+lib/Environments/testing_env.cpp
 lib/ModeManager
 lib/RemoteControl
+lib/UltraSounds
 .pio

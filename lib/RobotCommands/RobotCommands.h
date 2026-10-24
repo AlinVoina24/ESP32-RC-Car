@@ -61,3 +61,19 @@ struct RobotCommands {
 
     bool steeringTrimmPositive = false;
 };
+
+enum class SensorDirections {
+    MID,
+    LEFT,
+    RIGHT
+};
+
+enum class ScanningState {
+    WAITING,
+    MOVING_LEFT,
+    MOVING_RIGHT,
+    MOVING_MID,
+    SCANNING_LEFT,
+    SCANNING_RIGHT,
+    READY
+};

@@ -1,9 +1,9 @@
 #include <Robot.h>
 
-Robot::Robot(MotorControl& motorsRef, UltraSounds& sensorRef, WebInterface& webRef, AutonomousControl& autoRef):
+Robot::Robot(MotorControl& motorsRef, Scanner& scannerRef, WebInterface& webRef, AutonomousControl& autoRef):
 
     motors(motorsRef),
-    sensor(sensorRef),
+    scanner(scannerRef),
     webInt(webRef),
     autonomousControl(autoRef)
 
@@ -27,8 +27,8 @@ void Robot::clearCommandsQueue() {
 void Robot::reset() {
     this->motors.setToNeutral();
 
-    this->sensor.resetScanning();
-    this->sensor.resetKalmanFilter();
+    this->scanner.resetScanning();
+    this->scanner.resetSensorFilter();
 
     this->autonomousControl.resetState();
 
@@ -120,7 +120,7 @@ bool Robot::isCommandValid(const RobotCommands& command) {
 
 void Robot::startRobot() {
     this->motors.setToNeutral();
-    this->sensor.moveSensor(SensorDirections::MID);
+    this->scanner.startScanner();
 
     this->startWifiConnection();
     this->webInt.initializeWebConnection();
@@ -128,8 +128,8 @@ void Robot::startRobot() {
 
 void Robot::update() {
     if (this->mode != RobotMode::AUTONOMOUS || this->autonomousControl.getState() != AutonomousState::SCANNING) {
-        this->sensor.update();
-        this->webInt.sendDistance(this->sensor.getFilteredDistance());
+        this->scanner.update();
+        this->webInt.sendDistance(this->scanner.getFilteredDistance());
     } else {
         this->webInt.sendDistance(-1);
     }
@@ -159,9 +159,9 @@ void Robot::update() {
 
     if (this->mode == RobotMode::AUTONOMOUS) {
         if (this->autonomousControl.getState() == AutonomousState::SCANNING) {
-            if (this->sensor.scanning()) {
-                float left = this->sensor.getLeftDistance();
-                float right = this->sensor.getRightDistance();
+            if (this->scanner.scanning()) {
+                float left = this->scanner.getLeftDistance();
+                float right = this->scanner.getRightDistance();
 
                 RobotCommands command = this->autonomousControl.obstacleAvoidance(-1, left, right);
                 if (this->isCommandValid(command)) {
@@ -169,11 +169,11 @@ void Robot::update() {
                     latestAutonomousCommand = command;
                 }
 
-                this->sensor.resetKalmanFilter();
+                this->scanner.resetSensorFilter();
 
             } 
         } else {
-            RobotCommands command = this->autonomousControl.obstacleAvoidance(this->sensor.getFilteredDistance());
+            RobotCommands command = this->autonomousControl.obstacleAvoidance(this->scanner.getFilteredDistance());
             if (this->isCommandValid(command) && command.type != latestAutonomousCommand.type) {
                 this->commandQueue.push(command);
                 latestAutonomousCommand = command;
@@ -253,7 +253,7 @@ void Robot::executeCommand(const RobotCommands& command) {
 
     case CommandType::RIGHT_LEFT_DISTANCES:
         this->motors.setToNeutral();
-        this->sensor.scanning();
+        this->scanner.scanning();
 
         break;
 
