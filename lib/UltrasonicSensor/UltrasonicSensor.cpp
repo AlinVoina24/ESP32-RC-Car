@@ -27,5 +27,5 @@ float UltrasonicSensor::getDistance() {
         return duration * 0.343 / 2.0;
     }
 
-    return -1; 
+    return 300; 
 }

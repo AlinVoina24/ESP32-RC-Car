@@ -17,14 +17,21 @@ bool Scanner::update() {
     unsigned long now = millis();
 
     if (this->distance < 0) {
-        float rawDistance = this->sensor.getDistance();
+        float rawDistance = this->sensor.getDistance() / 10;
+        if (rawDistance < 0) {
+            return false;
+        }
+
         this->distance = this->filter.filterMeasurement(rawDistance);
         this->lastSampleTime = now;
         return true;
     }
 
     if (now - this->lastSampleTime >= this->sampleTimePeriod) {
-        float rawDistance = this->sensor.getDistance();
+        float rawDistance = this->sensor.getDistance() / 10;
+        if (rawDistance < 0) {
+            return false;
+        }
         
         if (rawDistance - this->distance < this->MAX_JUMP) {
             this->suspiciousCount = 0;

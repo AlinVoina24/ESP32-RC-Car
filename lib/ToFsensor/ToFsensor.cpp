@@ -24,17 +24,17 @@ bool ToFsensor::begin() {
 
 float ToFsensor::getDistance() {
     if (!sensor.dataReady()) {
-        return -1;
+        return -10;
     }
 
     this->sensor.read(false);
 
     if(this->sensor.timeoutOccurred()) {
-        return -1;
+        return -10;
     }
 
     if (this->sensor.ranging_data.range_status != VL53L1X::RangeValid) {
-        return -1;
+        return -10;
     }
 
     return this->sensor.ranging_data.range_mm;

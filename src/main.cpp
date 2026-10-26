@@ -2,8 +2,10 @@
 
 #include <MotorControl.h>
 #include <UltraSounds.h>
+#include <ToFsensor.h>
 #include <SensorServo.h>
 #include <KalmanFilter.h>
+#include <NoFilter.h>
 #include <Scanner.h>
 #include <WebInterface.h>
 #include <AutonomousControl.h>
