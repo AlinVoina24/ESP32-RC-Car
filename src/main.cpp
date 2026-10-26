@@ -1,7 +1,7 @@
 #include <Arduino.h>
 
 #include <MotorControl.h>
-#include <UltraSounds.h>
+#include <UltrasonicSensor.h>
 #include <ToFsensor.h>
 #include <SensorServo.h>
 #include <KalmanFilter.h>
