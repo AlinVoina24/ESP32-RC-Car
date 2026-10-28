@@ -19,7 +19,7 @@ bool Scanner::update() {
     if (this->distance < 0) {
         float rawDistance = this->sensor.getDistance() / 10;
         if (rawDistance < 0) {
-            return false;
+            return true;
         }
 
         this->distance = this->filter.filterMeasurement(rawDistance);
@@ -30,7 +30,7 @@ bool Scanner::update() {
     if (now - this->lastSampleTime >= this->sampleTimePeriod) {
         float rawDistance = this->sensor.getDistance() / 10;
         if (rawDistance < 0) {
-            return false;
+            return true;
         }
         
         if (rawDistance - this->distance < this->MAX_JUMP) {

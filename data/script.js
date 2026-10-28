@@ -452,17 +452,19 @@ const changeMode = (mode) => {
 const sensorData = (distance) => {
     const time = performance.now() / 1000;
         
-        measurements.push({
-            time,
-            distance
-        });
+    measurements.push({
+        time,
+        distance
+    });
 
-        if (measurements.length > 500) {
-            measurements.shift();
-        }
-        
-        addMeasurementsToFile(time, distance);
-        updateGraph();
+    const oldestAllowedTime = time - timeWindow;
+
+    while (measurements.length > 0 && measurements[0].time < oldestAllowedTime) {
+        measurements.shift();
+    }
+    
+    addMeasurementsToFile(time, distance);
+    updateGraph();
 }
 
 /* Afisarea starii autonome a robotului */

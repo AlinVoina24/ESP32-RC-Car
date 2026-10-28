@@ -76,7 +76,7 @@ RobotCommands AutonomousControl::obstacleAvoidance(float forwardDistance, float 
         
         case AutonomousState::STEERING: {
             unsigned long now = millis();
-            if (now - this->steeringStartTime >= 500) {
+            if (now - this->steeringStartTime >= 1000) {
                 command.type = CommandType::FORWARD_AUTO;
                 this->state = AutonomousState::MOVING_FORWARD;
             }

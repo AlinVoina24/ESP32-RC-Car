@@ -13,7 +13,7 @@ class UltrasonicSensor : public DistanceSensor {
     public:
         UltrasonicSensor(int, int);
 
-        bool begin();
+        bool begin() override;
         float getDistance() override;
         
 };

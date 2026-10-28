@@ -10,7 +10,7 @@ class ToFsensor : public DistanceSensor {
     
     public:
     
-        bool begin();
+        bool begin() override;
         float getDistance() override;
 
 };

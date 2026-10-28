@@ -7,8 +7,14 @@ class MotorControl {
         Servo throttle;
         Servo steering;
 
+        int throttleVal;
+        int steeringVal;
+
         int throttleOffset = 0;
         int steeringOffset = 0;
+
+        int normaliseThrottleVal(int);
+        int normaliseSteeringVal(int);
 
     public:
         MotorControl(int, int);

@@ -128,8 +128,10 @@ void Robot::startRobot() {
 
 void Robot::update() {
     if (this->mode != RobotMode::AUTONOMOUS || this->autonomousControl.getState() != AutonomousState::SCANNING) {
-        this->scanner.update();
-        this->webInt.sendDistance(this->scanner.getFilteredDistance());
+        if (this->scanner.update()) {
+            this->webInt.sendDistance(this->scanner.getFilteredDistance());
+        }
+        
     } else {
         this->webInt.sendDistance(-1);
     }
@@ -220,95 +222,95 @@ void Robot::processComands() {
 void Robot::executeCommand(const RobotCommands& command) {
     switch (command.type) {
 
-    case CommandType::CONNECTED:
-        this->reset();
-        this->mode = RobotMode::MANUAL;
-        this->webInt.sendRobotMode(this->mode);
-        break;
-
-    case CommandType::CONNECTION_REJECTED:
-        
-        break;
-
-    case CommandType::DISCONNECTED:
-        this->reset();
-        break;
-
-    case CommandType::NONE:
-        
-        break;
-
-    case CommandType::FORWARD_AUTO:
-        this->motors.steeringNeutral();
-        this->motors.forward();
-        break;
-
-    case CommandType::BACKWARD_AUTO:
-        this->motors.backward();
-        break;
-
-    case CommandType::BRAKE_AUTO:
-        this->motors.brake();
-        break;
-
-    case CommandType::RIGHT_LEFT_DISTANCES:
-        this->motors.setToNeutral();
-        this->scanner.scanning();
-
-        break;
-
-    case CommandType::STEERING_AUTO_LEFT:
-        this->motors.steeringLeft();
-        this->motors.forward();
-        break;
-
-    case CommandType::STEERING_AUTO_RIGHT:
-        this->motors.steeringRight();
-        this->motors.forward();
-        break;
-
-    case CommandType::MANUAL_DRIVE:
-        this->motors.setThrottleVal(command.throttleVal);
-        this->motors.setSteeringVal(command.steeringVal);
-        break;
-
-    case CommandType::STEERING_TRIMMER:
-        this->motors.updateSteeringOffset(command.steeringTrimmPositive);
-        this->webInt.sendSteeringNeutralValue(this->motors.getNeutralSteeringValue());
-        break;
-
-    case CommandType::CHANGE_MODE:
-        if (this->mode == RobotMode::SHUTDOWN) {
-            break;
-        }
-
-        this->reset();
-
-        if (this->mode == RobotMode::MANUAL) {
-            this->mode = RobotMode::AUTONOMOUS;
-        } else {
+        case CommandType::CONNECTED:
+            this->reset();
             this->mode = RobotMode::MANUAL;
-        }
+            this->webInt.sendRobotMode(this->mode);
+            break;
 
-        this->webInt.sendRobotMode(this->mode);
+        case CommandType::CONNECTION_REJECTED:
+            
+            break;
 
-        break;
+        case CommandType::DISCONNECTED:
+            this->reset();
+            break;
 
-    case CommandType::START:
-        this->reset();
-        this->mode = RobotMode::MANUAL;
-        this->webInt.sendRobotMode(this->mode);
-        this->webInt.sendStateLightMode(true);
-        break;
+        case CommandType::NONE:
+            
+            break;
 
-    case CommandType::SHUTDOWN:
-        this->reset();
-        this->mode = RobotMode::SHUTDOWN;
-        this->webInt.sendStateLightMode(false);
-        break;
+        case CommandType::FORWARD_AUTO:
+            this->motors.steeringNeutral();
+            this->motors.forward();
+            break;
 
-    default:
-        
-        break;
+        case CommandType::BACKWARD_AUTO:
+            this->motors.backward();
+            break;
+
+        case CommandType::BRAKE_AUTO:
+            this->motors.setToNeutral();
+            break;
+
+        case CommandType::RIGHT_LEFT_DISTANCES:
+            this->motors.setToNeutral();
+            this->scanner.scanning();
+
+            break;
+
+        case CommandType::STEERING_AUTO_LEFT:
+            this->motors.steeringLeft();
+            this->motors.forward();
+            break;
+
+        case CommandType::STEERING_AUTO_RIGHT:
+            this->motors.steeringRight();
+            this->motors.forward();
+            break;
+
+        case CommandType::MANUAL_DRIVE:
+            this->motors.setThrottleVal(command.throttleVal);
+            this->motors.setSteeringVal(command.steeringVal);
+            break;
+
+        case CommandType::STEERING_TRIMMER:
+            this->motors.updateSteeringOffset(command.steeringTrimmPositive);
+            this->webInt.sendSteeringNeutralValue(this->motors.getNeutralSteeringValue());
+            break;
+
+        case CommandType::CHANGE_MODE:
+            if (this->mode == RobotMode::SHUTDOWN) {
+                break;
+            }
+
+            this->reset();
+
+            if (this->mode == RobotMode::MANUAL) {
+                this->mode = RobotMode::AUTONOMOUS;
+            } else {
+                this->mode = RobotMode::MANUAL;
+            }
+
+            this->webInt.sendRobotMode(this->mode);
+
+            break;
+
+        case CommandType::START:
+            this->reset();
+            this->mode = RobotMode::MANUAL;
+            this->webInt.sendRobotMode(this->mode);
+            this->webInt.sendStateLightMode(true);
+            break;
+
+        case CommandType::SHUTDOWN:
+            this->reset();
+            this->mode = RobotMode::SHUTDOWN;
+            this->webInt.sendStateLightMode(false);
+            break;
+
+        default:
+            
+            break;
     }
 }

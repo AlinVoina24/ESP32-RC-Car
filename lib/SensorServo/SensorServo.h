@@ -10,7 +10,7 @@
 class SensorServo {
     private:
         Servo sensorServo;
-        int servoOffset = 0;
+        int servoOffset = -10;
         std::map<SensorDirections, int> dirs = {{SensorDirections::MID, 90}, {SensorDirections::RIGHT, 40}, {SensorDirections::LEFT, 140}};
 
         std::string dirToString(SensorDirections);
