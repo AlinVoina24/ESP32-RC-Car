@@ -54,7 +54,7 @@ void MotorControl::forward() {
 }
 
 void MotorControl::backward() {
-    this->throttleVal = this->normaliseThrottleVal(1300);
+    this->throttleVal = this->normaliseThrottleVal(1350);
     this->throttle.writeMicroseconds(this->throttleVal);
 }
 

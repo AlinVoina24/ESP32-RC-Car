@@ -8,6 +8,7 @@ enum class ErrorTypes {
 enum class AutonomousState {
   MOVING_FORWARD,
   MOVING_BACKWARD,
+  STOPPING,
   SCANNING,
   STEERING,
   WAIT_FOR_DISTANCE,

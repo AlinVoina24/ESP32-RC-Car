@@ -14,6 +14,10 @@ std::string autonomousStateToString(AutonomousState state) {
         return "MOVING_BACKWARD";
     }
 
+    if (state == AutonomousState::STOPPING) {
+        return "STOPPING";
+    }
+
     if (state == AutonomousState::SCANNING) {
         return "SCANNING";
     }

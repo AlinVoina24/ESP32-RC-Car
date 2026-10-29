@@ -8,6 +8,7 @@ class AutonomousControl {
         AutonomousState state = AutonomousState::WAIT_FOR_DISTANCE;
 
         unsigned long steeringStartTime;
+        unsigned long stopingStartTime;
 
     public:
         AutonomousControl() = default;

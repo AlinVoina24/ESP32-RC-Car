@@ -14,7 +14,7 @@ RobotCommands AutonomousControl::obstacleAvoidance(float forwardDistance, float 
                     command.type = CommandType::FORWARD_AUTO;
                     this->state = AutonomousState::MOVING_FORWARD;
                 } else if (forwardDistance <= 70) {
-                    command.type = CommandType::NONE;
+                    command.type = CommandType::BACKWARD_AUTO;
                     this->state = AutonomousState::MOVING_BACKWARD;
                 }
             } else {
@@ -47,10 +47,23 @@ RobotCommands AutonomousControl::obstacleAvoidance(float forwardDistance, float 
             if (forwardDistance < 100) {
                 command.type = CommandType::BACKWARD_AUTO;
             } else {
-                command.type = CommandType::RIGHT_LEFT_DISTANCES;
-                this->state = AutonomousState::SCANNING;
+                command.type = CommandType::BRAKE_AUTO;
+                this->state = AutonomousState::STOPPING;
+                this->stopingStartTime = millis();
             }
             break;
+
+        case AutonomousState::STOPPING: {
+            unsigned long now = millis();
+
+            if (now - this->stopingStartTime >= 1000) {
+                command.type = CommandType::RIGHT_LEFT_DISTANCES;
+                this->state = AutonomousState::SCANNING;
+            } else {
+                command.type = CommandType::NONE;
+            }
+            break;
+        }
 
         case AutonomousState::SCANNING:
             if (leftDistance < 0 || rightDistance < 0) {
